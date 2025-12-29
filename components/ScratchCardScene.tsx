@@ -48,14 +48,22 @@ const ScratchCardScene: React.FC = () => {
     let clientX, clientY;
 
     if ('touches' in e) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
+      // Touch event
+      const touches = (e as unknown as TouchEvent).touches;
+      if (touches && touches.length > 0) {
+        clientX = touches[0].clientX;
+        clientY = touches[0].clientY;
+      } else {
+        return;
+      }
     } else {
-      // Must be mouse event
+      // Mouse event
       // Check if mouse is pressed (buttons === 1 is left click)
-      if ((e as React.MouseEvent).buttons !== 1) return;
-      clientX = (e as React.MouseEvent).clientX;
-      clientY = (e as React.MouseEvent).clientY;
+      // e.buttons is safe to access on React.MouseEvent
+      const mouseEvent = e as React.MouseEvent;
+      if (mouseEvent.buttons !== 1) return;
+      clientX = mouseEvent.clientX;
+      clientY = mouseEvent.clientY;
     }
 
     const x = clientX - rect.left;
@@ -116,6 +124,7 @@ const ScratchCardScene: React.FC = () => {
              className="w-full h-full cursor-pointer touch-none"
              onMouseMove={handleScratch}
              onTouchMove={handleScratch}
+             onTouchStart={handleScratch}
              onMouseDown={handleScratch}
            ></canvas>
         </div>

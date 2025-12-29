@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MusicDisc } from '../types';
 import { MUSIC_DISCS } from '../constants';
-import { Disc3, Play, Music } from 'lucide-react';
+import { Disc, Play, Music } from 'lucide-react';
 
 interface Props {
   onMusicSelect: (disc: MusicDisc) => void;
@@ -65,7 +65,7 @@ const PhonographScene: React.FC<Props> = ({ onMusicSelect, onNext }) => {
             className={`group relative flex flex-col items-center transition-all duration-300 ${selectedDiscId === disc.id ? 'scale-110 -translate-y-2' : 'hover:scale-105'}`}
           >
             <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${disc.color} shadow-lg flex items-center justify-center border-2 ${selectedDiscId === disc.id ? 'border-amber-200' : 'border-transparent'}`}>
-              <Disc3 className="text-white w-8 h-8 opacity-80" />
+              <Disc className="text-white w-8 h-8 opacity-80" />
             </div>
             <span className="mt-2 text-xs text-amber-100 font-serif tracking-wider">{disc.title}</span>
             {selectedDiscId === disc.id && (

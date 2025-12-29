@@ -16,8 +16,8 @@ const RooftopScene: React.FC<Props> = ({ onNext }) => {
   const [treeGrown, setTreeGrown] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Generate background static stars
-  const staticStars = useRef(Array.from({ length: 100 }).map((_, i) => ({
+  // Generate background static stars once using lazy initialization
+  const [staticStars] = useState(() => Array.from({ length: 100 }).map((_, i) => ({
     id: i,
     top: Math.random() * 60, // Only top 60% of screen
     left: Math.random() * 100,
@@ -86,7 +86,7 @@ const RooftopScene: React.FC<Props> = ({ onNext }) => {
       <div className="absolute top-10 right-10 w-24 h-24 rounded-full bg-slate-200 shadow-[0_0_50px_rgba(255,255,255,0.5)] opacity-80"></div>
 
       {/* Static Stars */}
-      {staticStars.current.map(star => (
+      {staticStars.map(star => (
         <div
           key={star.id}
           className="absolute bg-white rounded-full animate-twinkle"
